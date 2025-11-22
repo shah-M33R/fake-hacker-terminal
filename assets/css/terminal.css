@@ -13,6 +13,9 @@
     margin-top: 20px;
     display: flex;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border: 1px solid var(--dark-green);
 }
 
 .prompt {
@@ -54,4 +57,20 @@
 }
 ::-webkit-scrollbar-thumb {
     background: var(--neon-green);
+}
+
+/* Attendance Hack Visuals */
+.red { color: #ff0000; text-shadow: 0 0 5px #ff0000; }
+.green { color: #00ff00; text-shadow: 0 0 5px #00ff00; }
+
+.down-arrow, .up-arrow {
+    font-size: 0.8em;
+    margin-left: 5px;
+    display: inline-block;
+    animation: fadeMove 0.5s ease-out forwards;
+}
+
+@keyframes fadeMove {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
 }

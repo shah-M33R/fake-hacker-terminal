@@ -12,7 +12,6 @@
     <div class="input-area">
         <span class="prompt">root@hacker:~$</span>
         <input type="text" id="command-input" autocomplete="off" autofocus>
-        <span class="cursor"></span>
     </div>
 </div>
 

@@ -8,10 +8,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode($json, true);
 
         if (isset($data[$roll])) {
-            // Hack: Increase attendance by random amount
-            $increase = rand(5, 15);
-            $data[$roll] += $increase;
-            if ($data[$roll] > 100) $data[$roll] = 100;
+            // Steal Attendance Logic
+            $stolenAmount = 0;
+            
+            foreach ($data as $id => &$student) {
+                if ($id !== $roll) {
+                    // Steal 1-3 days from others
+                    $steal = rand(1, 3);
+                    if ($student['attendance'] > 5) {
+                        $student['attendance'] -= $steal;
+                        $stolenAmount += $steal;
+                    }
+                }
+            }
+            
+            // Add stolen amount to hacker
+            $data[$roll]['attendance'] += $stolenAmount;
+            if ($data[$roll]['attendance'] > 100) $data[$roll]['attendance'] = 100; // Cap at 100 (or maybe more for fun?)
 
             file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT));
             

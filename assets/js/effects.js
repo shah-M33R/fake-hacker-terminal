@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputs = document.querySelectorAll('input[type="text"]');
     inputs.forEach(input => {
         input.addEventListener('input', () => {
-            const audio = new Audio('assets/sounds/typing.wav');
+            const audio = new Audio('assets/sounds/typing.mp3');
             audio.volume = 0.1;
             audio.play().catch(() => {}); // Ignore errors if no interaction yet
         });

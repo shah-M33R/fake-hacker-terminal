@@ -1,6 +1,38 @@
 {
-    "21F-101": 86,
-    "21F-102": 66,
-    "21F-103": 100,
-    "21F-104": 90
+    "21F-101": {
+        "name": "John Doe",
+        "attendance": 82
+    },
+    "21F-102": {
+        "name": "Jane Smith",
+        "attendance": 62
+    },
+    "21F-103": {
+        "name": "Alice Johnson",
+        "attendance": 96
+    },
+    "21F-104": {
+        "name": "Bob Williams",
+        "attendance": 98
+    },
+    "21F-105": {
+        "name": "Charlie Brown",
+        "attendance": 43
+    },
+    "21F-106": {
+        "name": "Diana Prince",
+        "attendance": 90
+    },
+    "21F-107": {
+        "name": "Evan Wright",
+        "attendance": 76
+    },
+    "21F-108": {
+        "name": "Fiona Gallagher",
+        "attendance": 26
+    },
+    "21F-109": {
+        "name": "George Martin",
+        "attendance": 86
+    }
 }
