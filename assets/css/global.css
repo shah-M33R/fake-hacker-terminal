@@ -1,0 +1,40 @@
+/* Global Styles */
+:root {
+    --neon-green: #00ff00;
+    --dark-green: #003300;
+    --black: #000000;
+    --font-stack: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: var(--black);
+    color: var(--neon-green);
+    font-family: var(--font-stack);
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrollbars during animations */
+    height: 100vh;
+    width: 100vw;
+}
+
+a {
+    color: var(--neon-green);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+.hidden {
+    display: none;
+}
+
+.container {
+    padding: 20px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}

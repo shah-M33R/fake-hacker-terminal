@@ -1,0 +1,57 @@
+/* Terminal Interface Styles */
+.terminal-window {
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+    padding: 20px;
+    height: 80%;
+    overflow-y: auto;
+    background-color: rgba(0, 20, 0, 0.9);
+    position: relative;
+}
+
+.input-area {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.prompt {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#command-input {
+    background: transparent;
+    border: none;
+    color: var(--neon-green);
+    font-family: var(--font-stack);
+    font-size: 1.2rem;
+    flex-grow: 1;
+    outline: none;
+}
+
+.output-line {
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.success {
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-green);
+}
+
+.error {
+    color: red;
+    text-shadow: 0 0 5px red;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--black);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--neon-green);
+}
