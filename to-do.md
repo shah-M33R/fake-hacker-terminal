@@ -1,6 +1,0 @@
-- Adding sounds, and working on their code
-- Another look at student percentages, if i should add/sub in rounds of 10 or not
-- Making popup for the stealing bit
-- Adding group hacking bit
-- Clean up
-- Documentation
