@@ -1,8 +1,6 @@
-- Fix the sounds not playing
-- Terminal shakes and turns red subtly on wrong command
-- The whole student row shoult turn red while decrementing, and maybe the incrementing one's turn yellow
-- Also slow the process of decrementing and incrementing a liiitle bit, and increase the size of the incrementing and decrementing numbers/arrows/+ and -
-- The progress bar should show the progress of the hacking, and above the progress bar instead of "hacking" it should say "Working with work, please wait..." (it's an easter egg)
-- Also i guess the progressbar and the easter egg should be a lighter green, for prominence
-- The successful screen before the end credits, bring that back
-- Finally, the end credits should stop scrolling once [logout] is at the very center
+- Adding sounds, and working on their code
+- Another look at student percentages, if i should add/sub in rounds of 10 or not
+- Making popup for the stealing bit
+- Adding group hacking bit
+- Clean up
+- Documentation
