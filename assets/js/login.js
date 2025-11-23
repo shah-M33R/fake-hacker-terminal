@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startLoginSequence(username) {
-        // Hide inputs during sequence
         document.querySelector('.input-area').style.display = 'none';
         
         const logs = [
@@ -68,9 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function playTypingSound() {
-        // Optional: Add sound playing logic here if audio file exists
         const audio = new Audio('assets/sounds/typing.wav');
         audio.volume = 0.2;
-        audio.play().catch(e => console.log("Audio play failed (interaction needed first)"));
+        audio.play().catch(e => {});
     }
 });

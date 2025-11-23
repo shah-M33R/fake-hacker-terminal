@@ -9,15 +9,13 @@
         <div class="output-line">---------------------------------</div>
     </div>
 
-    <div class="input-area">
+    <div class="terminal-input">
         <span class="prompt">root@hacker:~$</span>
         <input type="text" id="command-input" autocomplete="off" autofocus>
     </div>
 </div>
 
-<form id="hack-form" action="actions.php" method="POST" class="hidden">
-    <input type="hidden" name="roll" id="roll-input">
-</form>
+
 
 <script src="assets/js/matrix.js"></script>
 <script src="assets/js/terminal.js"></script>

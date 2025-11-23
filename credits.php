@@ -21,6 +21,9 @@
     0% { transform: translateY(100%); }
     100% { transform: translateY(-100%); }
 }
+.container div {
+    animation: scrollUp 20s linear infinite;
+}
 </style>
 </body>
 </html>

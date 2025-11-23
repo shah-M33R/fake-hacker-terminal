@@ -7,7 +7,7 @@ $attendance = 'N/A';
 if (file_exists($file)) {
     $data = json_decode(file_get_contents($file), true);
     if (isset($data[$roll])) {
-        $attendance = $data[$roll];
+        $attendance = $data[$roll]['attendance'];
     }
 }
 ?>
@@ -32,7 +32,6 @@ if (file_exists($file)) {
 </div>
 
 <script>
-    // Play success sound if available
     const audio = new Audio('assets/sounds/access-granted.mp3');
     audio.play().catch(() => {});
 </script>

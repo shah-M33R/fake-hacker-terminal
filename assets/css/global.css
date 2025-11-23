@@ -79,6 +79,11 @@ a:hover {
     50% { opacity: 0; }
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
 /* Input Styling */
 input {
     background: transparent;
@@ -91,7 +96,12 @@ input {
     caret-color: var(--neon-green); /* Standard caret */
 }
 
+#login-input, #password-input {
+    background: transparent !important;
+    color: var(--neon-green) !important;
+}
+
 /* Hide default cursor span if we use caret-color, or keep it for custom effect */
 .cursor {
-    display: none; /* Using native caret for now as requested in V2 "follow text input" implies native behavior or complex JS */
+    display: none;
 }
