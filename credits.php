@@ -1,7 +1,6 @@
 <?php include 'includes/header.php'; ?>
 
 <div class="container" style="justify-content: center; align-items: center; overflow: hidden;">
-    <div style="text-align: center; animation: scrollUp 10s linear infinite;">
         <h1 class="glitch">HACKER GROUP 404</h1>
         <br>
         <h2>DEVELOPED BY:</h2>
@@ -13,16 +12,16 @@
         <p>THANKS FOR PLAYING</p>
         <br><br>
         <a href="index.php">[ LOGOUT ]</a>
-    </div>
 </div>
 
 <style>
 @keyframes scrollUp {
-    0% { transform: translateY(100%); }
-    100% { transform: translateY(-100%); }
+    0% { transform: translateY(70%); }
+    100% { transform: translateY(0%); } 
 }
-.container div {
-    animation: scrollUp 20s linear infinite;
+
+.container {
+    animation: scrollUp 6s linear 1 forwards; 
 }
 </style>
 </body>

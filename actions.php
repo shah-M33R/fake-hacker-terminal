@@ -8,27 +8,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode($json, true);
 
         if (isset($data[$roll])) {
-            // Steal Attendance Logic
-            $stolenAmount = 0;
+            $targetAmount = isset($_POST['amount']) ? (int)$_POST['amount'] : 0;
+            $stolenSoFar = 0;
             
-            foreach ($data as $id => &$student) {
-                if ($id !== $roll) {
-                    // Steal 1-3 days from others
-                    $steal = rand(1, 3);
-                    if ($student['attendance'] > 5) {
-                        $student['attendance'] -= $steal;
-                        $stolenAmount += $steal;
-                    }
+            $otherIds = [];
+            foreach ($data as $id => $student) {
+                if ($id !== $roll && $student['attendance'] > 0) {
+                    $otherIds[] = $id;
+                }
+            }
+
+            while ($stolenSoFar < $targetAmount && count($otherIds) > 0) {
+                $randomIndex = array_rand($otherIds);
+                $victimId = $otherIds[$randomIndex];
+                
+                if ($data[$victimId]['attendance'] > 0) {
+                    $data[$victimId]['attendance']--;
+                    $stolenSoFar++;
+                } else {
+                    unset($otherIds[$randomIndex]); 
+                    $otherIds = array_values($otherIds); 
                 }
             }
             
-            // Add stolen amount to hacker
-            $data[$roll]['attendance'] += $stolenAmount;
-            if ($data[$roll]['attendance'] > 100) $data[$roll]['attendance'] = 100; // Cap at 100 (or maybe more for fun?)
+            $data[$roll]['attendance'] += $stolenSoFar;
+            if ($data[$roll]['attendance'] > 100) $data[$roll]['attendance'] = 100;
 
             file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT));
             
-            // Redirect to result
             header("Location: result.php?roll=" . urlencode($roll) . "&success=1");
             exit;
         }

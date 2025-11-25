@@ -1,234 +1,230 @@
 {
-    "BSSE51F24R001": {
+    "R001": {
         "name": "Hermain Fatima",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R002": {
+    "R002": {
         "name": "Hanzla Rani",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R003": {
+    "R003": {
         "name": "Shahmeer Hassan",
-        "attendance": 100
+        "attendance": 97
     },
-    "BSSE51F24R004": {
+    "R004": {
         "name": "Alisha Javed",
         "attendance": 0
     },
-    "BSSE51F24R005": {
+    "R005": {
         "name": "Sarah Siddiqui",
         "attendance": 100
     },
-    "BSSE51F24R006": {
+    "R006": {
         "name": "Fariha Chaudhary",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R008": {
+    "R008": {
         "name": "Laweeza Mehwish",
         "attendance": 90
     },
-    "BSSE51F24R009": {
+    "R009": {
         "name": "Arshia Noor",
         "attendance": 92
     },
-    "BSSE51F24R010": {
+    "R010": {
         "name": "Alishba Mubeen",
-        "attendance": 92
+        "attendance": 90
     },
-    "BSSE51F24R011": {
+    "R011": {
         "name": "Numeera Yousaf",
         "attendance": 100
     },
-    "BSSE51F24R012": {
+    "R012": {
         "name": "Sidra Waseem",
         "attendance": 0
     },
-    "BSSE51F24R014": {
+    "R014": {
         "name": "Ali Asghar",
         "attendance": 80
     },
-    "BSSE51F24R015": {
+    "R015": {
         "name": "M. Aosaf Ahmad",
         "attendance": 100
     },
-    "BSSE51F24R016": {
+    "R016": {
         "name": "M.Izaan Haider",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R017": {
+    "R017": {
         "name": "Sawaira Mumtaz",
         "attendance": 100
     },
-    "BSSE51F24R018": {
+    "R018": {
         "name": "Laiba Attiq",
-        "attendance": 80
+        "attendance": 79
     },
-    "BSSE51F24R019": {
+    "R019": {
         "name": "M. Rehan",
         "attendance": 90
     },
-    "BSSE51F24R020": {
+    "R020": {
         "name": "M. Hashir",
-        "attendance": 90
+        "attendance": 89
     },
-    "BSSE51F24R022": {
+    "R022": {
         "name": "Noor Fatima",
-        "attendance": 100
+        "attendance": 96
     },
-    "BSSE51F24R023": {
+    "R023": {
         "name": "Zainab Babar",
         "attendance": 90
     },
-    "BSSE51F24R024": {
+    "R024": {
         "name": "Adeel Abbas",
-        "attendance": 80
+        "attendance": 76
     },
-    "BSSE51F24R026": {
+    "R026": {
         "name": "Laiba Asghar",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R027": {
+    "R027": {
         "name": "Aiman Noor",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R028": {
+    "R028": {
         "name": "Alishba Saleem",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R029": {
+    "R029": {
         "name": "Zainab Jameela",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R030": {
+    "R030": {
         "name": "Saliha Ghulam Nabi",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R031": {
+    "R031": {
         "name": "Ammara Hafeez",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R032": {
+    "R032": {
         "name": "Faheem Abbas",
-        "attendance": 90
+        "attendance": 89
     },
-    "BSSE51F24R033": {
+    "R033": {
         "name": "Eman Fatima",
-        "attendance": 90
+        "attendance": 89
     },
-    "BSSE51F24R034": {
+    "R034": {
         "name": "Hafsa Ejaz",
-        "attendance": 90
+        "attendance": 89
     },
-    "BSSE51F24R035": {
+    "R035": {
         "name": "M. Rayan Haider",
         "attendance": 90
     },
-    "BSSE51F24R036": {
+    "R036": {
         "name": "Marwa Tahira",
         "attendance": 90
     },
-    "BSSE51F24R037": {
+    "R037": {
         "name": "Tooba Bashir",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24R038": {
+    "R038": {
         "name": "Hina Ahmad Awan",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R039": {
+    "R039": {
         "name": "Abdul Sami",
         "attendance": 90
     },
-    "BSSE51F24R040": {
+    "R040": {
         "name": "Eman Fatima",
         "attendance": 100
     },
-    "BSSE51F24R041": {
+    "R041": {
         "name": "Fakhar Muhammad",
         "attendance": 100
     },
-    "BSSE51F24R042": {
+    "R042": {
         "name": "Alishba",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R043": {
+    "R043": {
         "name": "Tanzeel Ahmad",
-        "attendance": 90
+        "attendance": 89
     },
-    "BSSE51F24R044": {
+    "R044": {
         "name": "Uzair Amil",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R045": {
+    "R045": {
         "name": "Rana Uffan",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R046": {
+    "R046": {
         "name": "M. Huzaifa",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R048": {
+    "R048": {
         "name": "Saif ur Rehman",
         "attendance": 100
     },
-    "BSSE51F24R049": {
+    "R049": {
         "name": "Sajid Ali",
         "attendance": 0
     },
-    "BSSE51F24R050": {
+    "R050": {
         "name": "Huzaifah Iftikhar",
-        "attendance": 80
+        "attendance": 78
     },
-    "BSSE51F24R051": {
+    "R051": {
         "name": "Abdul Hadi",
         "attendance": 100
     },
-    "BSSE51F24R052": {
+    "R052": {
         "name": "M. Yousaf Raza",
-        "attendance": 100
+        "attendance": 98
     },
-    "BSSE51F24R053": {
+    "R053": {
         "name": "M. Abdullah",
-        "attendance": 40
+        "attendance": 90
     },
-    "BSSE51F24R054": {
+    "R054": {
         "name": "Wajiha Fazal",
         "attendance": 100
     },
-    "BSSE51F24R056": {
+    "R056": {
         "name": "Muhammad Suleiman",
         "attendance": 100
     },
-    "BSSE51F24R057": {
+    "R057": {
         "name": "M. Rayan Ahmad",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24S005": {
+    "S005": {
         "name": "Maria Zulfiqar",
         "attendance": 100
     },
-    "BSSE51F24S011": {
+    "S011": {
         "name": "Sehal Babar",
-        "attendance": 100
+        "attendance": 99
     },
-    "BSSE51F24S018": {
+    "S018": {
         "name": "Eman Sarwar",
         "attendance": 100
     },
-    "BSSE51F24S060": {
+    "S060": {
         "name": "Rida Shoukat",
         "attendance": 100
     },
-    "BSSE51F24S079": {
+    "S079": {
         "name": "Saba Fatima",
-        "attendance": 90
+        "attendance": 89
     },
-    "BSSE51F24S082": {
+    "S082": {
         "name": "Iqra Batool",
         "attendance": 100
-    },
-    "BSSE51S24R044": {
-        "name": "Abdul Wahab",
-        "attendance": 0
     }
 }

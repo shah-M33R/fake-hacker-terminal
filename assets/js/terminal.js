@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('click', () => commandInput.focus());
 
         commandInput.addEventListener('keydown', (e) => {
-            playTypingSound();
+            // Sound removed
 
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -41,18 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function playTypingSound() {
-        const audio = new Audio('assets/sounds/typing.mp3');
-        audio.volume = 0.2;
-        audio.currentTime = 0;
-        audio.play().catch(e => {});
-    }
-
-    function playErrorSound() {
-        // Error sound logic
-    }
-
-    let hackStage = 0; // 0: None, 1: Database Accessed, 2: Subject Selected
+    let hackStage = 0;
     let currentRoll = null;
 
     function processCommand(cmd) {
@@ -65,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (action === 'help') {
             printOutput("AVAILABLE COMMANDS:");
             printOutput("- hack uni_database : Access University Database");
-            printOutput("- show attendance_sheets : Display Attendance (Requires DB Access)");
-            printOutput("- select <subject> : Select Subject (e.g., 'web technologies')");
-            printOutput("- steal <my_roll_number> : Steal Attendance");
+            printOutput("- show subjects : Display Attendance (Requires DB Access)");
+            printOutput("- select --(subject) : Select Subject (e.g., 'web technologies')");
+            printOutput("- steal --(id) --(percentage) : Steal Attendance");
             printOutput("- exit : Logout and view credits");
             printOutput("- clear : Clear terminal");
         } else if (action === 'clear') {
@@ -83,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
         } else if (action === 'hack' && args === 'uni_database') {
             initiateDatabaseHack();
-        } else if (action === 'show' && args === 'attendance_sheets') {
+        } else if (action === 'show' && args === 'subjects') {
             if (hackStage < 1) {
                 triggerError("ERROR: ACCESS DENIED. DATABASE NOT ACCESSED.");
             } else {
@@ -95,21 +84,28 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (action === 'select') {
             if (hackStage < 1) {
                 triggerError("ERROR: ACCESS DENIED. DATABASE NOT ACCESSED.");
-            } else if (args.toLowerCase() === 'web technologies') {
+            } else if (args.toLowerCase() === '--web technologies') {
                 hackStage = 2;
                 printOutput("SUBJECT SELECTED: WEB TECHNOLOGIES");
                 printOutput("FETCHING ATTENDANCE DATA...");
                 setTimeout(fetchAndDisplayAttendance, 1000);
             } else {
-                triggerError(`ERROR: Subject '${args}' not found.`);
+                triggerError(`ERROR: Subject '${args}' not found. Use --(subject)`);
             }
         } else if (action === 'steal') {
             if (hackStage < 2) {
                 triggerError("ERROR: NO SUBJECT SELECTED.");
-            } else if (args) {
-                initiateSteal(args);
             } else {
-                triggerError("ERROR: Specify your roll number. Usage: steal <roll>");
+                const idMatch = cmd.match(/--([a-zA-Z0-9]+)/);
+                const percentMatch = cmd.match(/--\w+\s+--(\d+)/); 
+                
+                if (idMatch && percentMatch) {
+                     const id = idMatch[1];
+                     const percentage = parseInt(percentMatch[1]); // Fix: percentMatch index
+                     initiateSteal(id, percentage);
+                } else {
+                    triggerError("ERROR: Usage: steal --(id) --(percentage)");
+                }
             }
         } else {
             triggerError(`Command not found: ${cmd}`);
@@ -119,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function triggerError(msg) {
         printOutput(msg);
         outputContainer.classList.add('error-shake');
-        playErrorSound();
         setTimeout(() => {
             outputContainer.classList.remove('error-shake');
         }, 500);
@@ -148,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fetchAndDisplayAttendance() {
-        fetch('assets/data/attendance.json')
+        fetch('assets/data/attendance.json?t=' + new Date().getTime())
             .then(response => response.json())
             .then(data => {
                 let tableHtml = '<table id="attendance-table" style="width:100%; text-align:left; color:var(--neon-green);"><tr><th>ID</th><th>NAME</th><th>DAYS</th></tr>';
@@ -157,32 +152,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 tableHtml += '</table>';
                 printOutput(tableHtml, true);
-                printOutput("READY TO STEAL. USE: steal <your_roll_number>");
+                printOutput("READY TO STEAL. USE: steal --(id) --(percentage)");
             })
             .catch(err => printOutput("ERROR: FAILED TO FETCH DATA"));
     }
 
-    function initiateSteal(roll) {
+    function initiateSteal(roll, targetAmount) {
         currentRoll = roll;
         printOutput(`[!] TARGETING: ${roll}`);
-        printOutput(`[!] SIPHONING ATTENDANCE FROM PEERS...`);
+        printOutput(`[!] SIPHONING ${targetAmount}% ATTENDANCE FROM PEERS...`);
         
         const hackerRow = document.getElementById(`row-${roll}`);
         if (!hackerRow) {
             triggerError("ERROR: YOUR ID NOT FOUND IN TABLE. PLEASE RE-SCAN.");
             return;
         }
+        hackerRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
         hackerRow.classList.add('row-increment');
 
         const rows = document.querySelectorAll('#attendance-table tr');
         let totalStolen = 0;
-        let iterations = 0;
-        const maxIterations = 20; // How many updates to show
-
+        
         const interval = setInterval(() => {
-            iterations++;
             
-            // Pick a random victim
             const randomRow = rows[Math.floor(Math.random() * rows.length)];
             const victimId = randomRow.id.replace('row-', '');
             
@@ -195,28 +187,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentVal--;
                     valCell.innerHTML = `${currentVal} <span class="down-arrow red">-1</span>`;
                     totalStolen++;
+                    
+                    const hackerValCell = hackerRow.querySelector('.attendance-val');
+                    let hackerVal = parseInt(hackerValCell.textContent);
+                    hackerVal++;
+                    hackerValCell.innerHTML = `${hackerVal} <span class="up-arrow green">+1</span>`;
                 }
                 
-                // Remove highlight after a bit
                 setTimeout(() => {
                     randomRow.classList.remove('row-decrement');
                 }, 200);
             }
 
-            // Update hacker
-            const hackerValCell = hackerRow.querySelector('.attendance-val');
-            let hackerVal = parseInt(hackerValCell.textContent); // Parse just the number
-            hackerVal++;
-            hackerValCell.innerHTML = `${hackerVal} <span class="up-arrow green">+1</span>`;
-
-            if (iterations >= maxIterations) {
+            if (totalStolen >= targetAmount) {
                 clearInterval(interval);
                 printOutput(`[+] ATTENDANCE TRANSFERRED.`);
                 printOutput(`[+] UPDATING RECORDS...`);
                 
-                // Send data to backend without redirecting
                 const formData = new FormData();
                 formData.append('roll', roll);
+                formData.append('amount', targetAmount);
                 fetch('actions.php', {
                     method: 'POST',
                     body: formData
@@ -225,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     printOutput(`[!] MISSION COMPLETE. TYPE 'exit' TO LEAVE.`);
                 });
             }
-        }, 100); // Faster animation
+        }, 100);
     }
 
     function simulateProgress(callback) {
