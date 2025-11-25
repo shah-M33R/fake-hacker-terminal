@@ -31,9 +31,5 @@ if (file_exists($file)) {
     </div>
 </div>
 
-<script>
-    const audio = new Audio('assets/sounds/access-granted.mp3');
-    audio.play().catch(() => {});
-</script>
 </body>
 </html>

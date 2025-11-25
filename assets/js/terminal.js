@@ -7,51 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (commandInput) {
         commandInput.focus();
         document.addEventListener('click', () => commandInput.focus());
-
-        commandInput.addEventListener('keydown', (e) => {
-            // Sound removed
-
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const command = commandInput.value.trim();
-                
-                if (command) {
-                    commandHistory.push(command);
-                    historyIndex = commandHistory.length;
-                }
-                
-                processCommand(command);
-                commandInput.value = '';
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    commandInput.value = commandHistory[historyIndex];
-                }
-            } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                if (historyIndex < commandHistory.length - 1) {
-                    historyIndex++;
-                    commandInput.value = commandHistory[historyIndex];
-                } else {
-                    historyIndex = commandHistory.length;
-                    commandInput.value = '';
-                }
-            }
-        });
+        commandInput.addEventListener('keydown', handleKeydown);
     }
 
     let hackStage = 0;
     let currentRoll = null;
 
-    function processCommand(cmd) {
-        printOutput(`root@hacker:~$ ${cmd}`);
-
-        const parts = cmd.split(' ');
-        const action = parts[0].toLowerCase();
-        const args = parts.slice(1).join(' ');
-
-        if (action === 'help') {
+    const commands = {
+        help: () => {
             printOutput("AVAILABLE COMMANDS:");
             printOutput("- hack uni_database : Access University Database");
             printOutput("- show subjects : Display Attendance (Requires DB Access)");
@@ -59,9 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
             printOutput("- steal --(id) --(percentage) : Steal Attendance");
             printOutput("- exit : Logout and view credits");
             printOutput("- clear : Clear terminal");
-        } else if (action === 'clear') {
+        },
+        clear: () => {
             outputContainer.innerHTML = '';
-        } else if (action === 'exit') {
+        },
+        exit: () => {
             printOutput("LOGGING OUT...", true);
             setTimeout(() => {
                 if (currentRoll) {
@@ -70,21 +35,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = 'credits.php';
                 }
             }, 1000);
-        } else if (action === 'hack' && args === 'uni_database') {
-            initiateDatabaseHack();
-        } else if (action === 'show' && args === 'subjects') {
+        },
+        hack: ({ args, raw }) => {
+            if (args === 'uni_database') {
+                initiateDatabaseHack();
+            } else {
+                triggerError(`Command not found: ${raw}`);
+            }
+        },
+        show: ({ args, raw }) => {
             if (hackStage < 1) {
                 triggerError("ERROR: ACCESS DENIED. DATABASE NOT ACCESSED.");
-            } else {
+                return;
+            }
+            if (args === 'subjects') {
                 printOutput("AVAILABLE SUBJECTS:");
                 printOutput("- Web Technologies");
                 printOutput("- Data Structures");
                 printOutput("- Artificial Intelligence");
+            } else {
+                triggerError(`Command not found: ${raw}`);
             }
-        } else if (action === 'select') {
+        },
+        select: ({ args }) => {
             if (hackStage < 1) {
                 triggerError("ERROR: ACCESS DENIED. DATABASE NOT ACCESSED.");
-            } else if (args.toLowerCase() === '--web technologies') {
+                return;
+            }
+            if (args.toLowerCase() === '--web technologies') {
                 hackStage = 2;
                 printOutput("SUBJECT SELECTED: WEB TECHNOLOGIES");
                 printOutput("FETCHING ATTENDANCE DATA...");
@@ -92,21 +70,65 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 triggerError(`ERROR: Subject '${args}' not found. Use --(subject)`);
             }
-        } else if (action === 'steal') {
+        },
+        steal: ({ raw }) => {
             if (hackStage < 2) {
                 triggerError("ERROR: NO SUBJECT SELECTED.");
-            } else {
-                const idMatch = cmd.match(/--([a-zA-Z0-9]+)/);
-                const percentMatch = cmd.match(/--\w+\s+--(\d+)/); 
-                
-                if (idMatch && percentMatch) {
-                     const id = idMatch[1];
-                     const percentage = parseInt(percentMatch[1]); // Fix: percentMatch index
-                     initiateSteal(id, percentage);
-                } else {
-                    triggerError("ERROR: Usage: steal --(id) --(percentage)");
-                }
+                return;
             }
+            const idMatch = raw.match(/--([a-zA-Z0-9]+)/);
+            const percentMatch = raw.match(/--\w+\s+--(\d+)/);
+            if (idMatch && percentMatch) {
+                const id = idMatch[1];
+                const percentage = parseInt(percentMatch[1], 10);
+                initiateSteal(id, percentage);
+            } else {
+                triggerError("ERROR: Usage: steal --(id) --(percentage)");
+            }
+        }
+    };
+
+    function handleKeydown(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const command = commandInput.value.trim();
+            if (command) {
+                commandHistory.push(command);
+                historyIndex = commandHistory.length;
+                processCommand(command);
+            }
+            commandInput.value = '';
+            return;
+        }
+        if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (historyIndex > 0) {
+                historyIndex--;
+                commandInput.value = commandHistory[historyIndex];
+            }
+            return;
+        }
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (historyIndex < commandHistory.length - 1) {
+                historyIndex++;
+                commandInput.value = commandHistory[historyIndex];
+            } else {
+                historyIndex = commandHistory.length;
+                commandInput.value = '';
+            }
+        }
+    }
+
+    function processCommand(cmd) {
+        if (!cmd) return;
+        printOutput(`root@hacker:~$ ${cmd}`);
+        const parts = cmd.split(' ');
+        const action = parts[0].toLowerCase();
+        const args = parts.slice(1).join(' ').trim();
+        const handler = commands[action];
+        if (handler) {
+            handler({ args, raw: cmd });
         } else {
             triggerError(`Command not found: ${cmd}`);
         }
@@ -135,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function initiateDatabaseHack() {
         printOutput(`[!] TARGET: UNIVERSITY DATABASE`);
         printOutput(`[!] INITIATING BRUTE FORCE ATTACK...`);
-        
         simulateProgress(() => {
             printOutput(`[+] ACCESS GRANTED. DATABASE CONNECTED.`);
             hackStage = 1;
@@ -143,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fetchAndDisplayAttendance() {
-        fetch('assets/data/attendance.json?t=' + new Date().getTime())
+        fetch(`assets/data/attendance.json?t=${Date.now()}`)
             .then(response => response.json())
             .then(data => {
                 let tableHtml = '<table id="attendance-table" style="width:100%; text-align:left; color:var(--neon-green);"><tr><th>ID</th><th>NAME</th><th>DAYS</th></tr>';
@@ -154,14 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 printOutput(tableHtml, true);
                 printOutput("READY TO STEAL. USE: steal --(id) --(percentage)");
             })
-            .catch(err => printOutput("ERROR: FAILED TO FETCH DATA"));
+            .catch(() => printOutput("ERROR: FAILED TO FETCH DATA"));
     }
 
     function initiateSteal(roll, targetAmount) {
         currentRoll = roll;
         printOutput(`[!] TARGETING: ${roll}`);
         printOutput(`[!] SIPHONING ${targetAmount}% ATTENDANCE FROM PEERS...`);
-        
         const hackerRow = document.getElementById(`row-${roll}`);
         if (!hackerRow) {
             triggerError("ERROR: YOUR ID NOT FOUND IN TABLE. PLEASE RE-SCAN.");
@@ -169,41 +189,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         hackerRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
         hackerRow.classList.add('row-increment');
-
         const rows = document.querySelectorAll('#attendance-table tr');
         let totalStolen = 0;
-        
         const interval = setInterval(() => {
-            
             const randomRow = rows[Math.floor(Math.random() * rows.length)];
             const victimId = randomRow.id.replace('row-', '');
-            
             if (victimId && victimId !== roll && randomRow.id.startsWith('row-')) {
                 randomRow.classList.add('row-decrement');
                 const valCell = randomRow.querySelector('.attendance-val');
-                let currentVal = parseInt(valCell.textContent);
-                
+                let currentVal = parseInt(valCell.textContent, 10);
                 if (currentVal > 0) {
                     currentVal--;
                     valCell.innerHTML = `${currentVal} <span class="down-arrow red">-1</span>`;
                     totalStolen++;
-                    
                     const hackerValCell = hackerRow.querySelector('.attendance-val');
-                    let hackerVal = parseInt(hackerValCell.textContent);
+                    let hackerVal = parseInt(hackerValCell.textContent, 10);
                     hackerVal++;
                     hackerValCell.innerHTML = `${hackerVal} <span class="up-arrow green">+1</span>`;
                 }
-                
                 setTimeout(() => {
                     randomRow.classList.remove('row-decrement');
                 }, 200);
             }
-
             if (totalStolen >= targetAmount) {
                 clearInterval(interval);
                 printOutput(`[+] ATTENDANCE TRANSFERRED.`);
                 printOutput(`[+] UPDATING RECORDS...`);
-                
                 const formData = new FormData();
                 formData.append('roll', roll);
                 formData.append('amount', targetAmount);
@@ -223,8 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const progressBar = document.createElement('div');
         progressBar.className = 'output-line progress-bar-text';
         outputContainer.appendChild(progressBar);
-
-        // Create Overlay
         const overlay = document.createElement('div');
         overlay.className = 'overlay-message';
         overlay.innerHTML = `
@@ -232,24 +241,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="overlay-subtitle">PLEASE WAIT...</div>
         `;
         document.body.appendChild(overlay);
-
         const interval = setInterval(() => {
-            progress += Math.floor(Math.random() * 5) + 1; // Slower increment
+            progress += Math.floor(Math.random() * 5) + 1;
             if (progress > 100) progress = 100;
-            
             let bar = '[';
-            for(let i=0; i<20; i++) {
-                bar += (i < progress / 5) ? '#' : '.';
+            for (let i = 0; i < 20; i++) {
+                bar += i < progress / 5 ? '#' : '.';
             }
             bar += `] ${progress}%`;
             progressBar.textContent = bar;
-
             if (progress === 100) {
                 clearInterval(interval);
-                document.body.removeChild(overlay); // Remove overlay
+                document.body.removeChild(overlay);
                 callback();
             }
             outputContainer.scrollTop = outputContainer.scrollHeight;
-        }, 200); // Slower interval (was 100)
+        }, 200);
     }
 });

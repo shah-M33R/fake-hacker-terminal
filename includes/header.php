@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/terminal.css">
     <link rel="stylesheet" href="assets/css/animations.css">
-    <script src="assets/js/effects.js" defer></script>
 </head>
 <body>
     <div class="scanline"></div>

@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 p.className = 'output-line';
                 p.textContent = `> ${log}`;
                 logsContainer.appendChild(p);
-                playTypingSound();
                 
                 if (index === logs.length - 1) {
                     setTimeout(() => {
@@ -64,11 +63,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }, delay);
             delay += Math.random() * 500 + 300;
         });
-    }
-    
-    function playTypingSound() {
-        const audio = new Audio('assets/sounds/typing.wav');
-        audio.volume = 0.2;
-        audio.play().catch(e => {});
     }
 });

@@ -33,7 +33,7 @@
     },
     "R010": {
         "name": "Alishba Mubeen",
-        "attendance": 90
+        "attendance": 88
     },
     "R011": {
         "name": "Numeera Yousaf",
@@ -45,7 +45,7 @@
     },
     "R014": {
         "name": "Ali Asghar",
-        "attendance": 80
+        "attendance": 92
     },
     "R015": {
         "name": "M. Aosaf Ahmad",
@@ -93,15 +93,15 @@
     },
     "R028": {
         "name": "Alishba Saleem",
-        "attendance": 99
+        "attendance": 98
     },
     "R029": {
         "name": "Zainab Jameela",
-        "attendance": 99
+        "attendance": 98
     },
     "R030": {
         "name": "Saliha Ghulam Nabi",
-        "attendance": 99
+        "attendance": 98
     },
     "R031": {
         "name": "Ammara Hafeez",
@@ -109,7 +109,7 @@
     },
     "R032": {
         "name": "Faheem Abbas",
-        "attendance": 89
+        "attendance": 88
     },
     "R033": {
         "name": "Eman Fatima",
@@ -137,11 +137,11 @@
     },
     "R039": {
         "name": "Abdul Sami",
-        "attendance": 90
+        "attendance": 89
     },
     "R040": {
         "name": "Eman Fatima",
-        "attendance": 100
+        "attendance": 99
     },
     "R041": {
         "name": "Fakhar Muhammad",
@@ -161,7 +161,7 @@
     },
     "R045": {
         "name": "Rana Uffan",
-        "attendance": 98
+        "attendance": 97
     },
     "R046": {
         "name": "M. Huzaifa",
@@ -181,7 +181,7 @@
     },
     "R051": {
         "name": "Abdul Hadi",
-        "attendance": 100
+        "attendance": 99
     },
     "R052": {
         "name": "M. Yousaf Raza",
@@ -217,7 +217,7 @@
     },
     "S060": {
         "name": "Rida Shoukat",
-        "attendance": 100
+        "attendance": 99
     },
     "S079": {
         "name": "Saba Fatima",
@@ -225,6 +225,6 @@
     },
     "S082": {
         "name": "Iqra Batool",
-        "attendance": 100
+        "attendance": 99
     }
 }

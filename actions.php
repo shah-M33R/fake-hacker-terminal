@@ -42,6 +42,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fallback if something fails
 header("Location: terminal.php?error=1");
 exit;
